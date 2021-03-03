@@ -1,0 +1,153 @@
+<form [formGroup]="form" (ngSubmit)="add()">
+    <header>
+        <h1>Formulaire patient</h1>
+        <div class="header-right">
+            <button class="btn-archive" *ngIf="route.snapshot.data.edit" (click)="delete()">Supprimer</button>
+            <button class="btn-add" type="submit">{{ route.snapshot.data.edit ? 'Modifier' : 'Ajouter' }}</button>
+        </div>
+    </header>
+    <div class="content-flex">
+        <div class="box">
+            <div class="content-box">
+                <table class="patient-form-table" cellpadding="15">
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <label for="lastName">Nom*</label>
+                                <input type="text" matInput formControlName="lastName" name="lastName" id="lastName" />
+                                <mat-error>
+                                    <span *ngIf="form.get('lastName').hasError('required')">Le nom est
+                                        obligatoire.</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <label for="firstName">Prénom*</label>
+                                <input matInput type="text" formControlName="firstName" name="firstName"
+                                    id="firstName" />
+                                <mat-error>
+                                    <span *ngIf="form.get('firstName').hasError('required')">Le prénom est
+                                        obligatoire.</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td colspan="2">
+                            <mat-form-field>
+                                <label for="socialNumber">N° Sécurité sociale</label>
+                                <input matInput type="text" formControlName="socialNumber" name="socialNumber"
+                                    id="socialNumber" />
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <label for="bloodGroup">Groupe sanguin</label>
+                                <input matInput type="number" formControlName="bloodGroup" name="bloodGroup"
+                                    id="bloodGroup" />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <label for="height">Taille</label>
+                                <input matInput type="text" formControlName="height" name="height" id="height" />
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <label for="weight">Poids</label>
+                                <input matInput type="number" formControlName="weight" name="weight" id="weight" />
+                            </mat-form-field>
+                        </td>
+                        <td colspan="2">
+                            <mat-form-field>
+                                <label for="lastSubject">Motif de la dernière visite*</label>
+                                <input matInput type="text" formControlName="lastSubject" name="lastSubject"
+                                    id="lastSubject" />
+                                <mat-error>
+                                    <span *ngIf="form.get('lastSubject').hasError('required')">Le motif de la dernière
+                                        visite est
+                                        obligatoire.</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <label for="lastIncome">Date de la dernière visite*</label>
+                                <input matInput type="date" formControlName="lastIncome" name="lastIncome"
+                                    id="lastIncome" />
+                                <mat-error>
+                                    <span *ngIf="form.get('lastIncome').hasError('required')">La date de la dernière
+                                        visite est
+                                        obligatoire.</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                                <label for="gender">Genre*</label>
+                                <mat-select matNativeControl formControlName="gender" name="gender" id="gender">
+                                    <mat-option value="Homme">Homme</mat-option>
+                                    <mat-option value="Femme">Femme</mat-option>
+                                    <mat-option value="Autres">Autres</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="form.get('gender').hasError('required')">Le genre est
+                                        obligatoire.</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td colspan="4">
+                            <mat-form-field>
+                                <label for="allergies">Allergies</label>
+                                <input matInput type="text" formControlName="allergies" name="allergies"
+                                    id="allergies" />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <div class="content-box patient-top-box patient-notes">
+                <h2>Notes</h2>
+                <mat-form-field class="content-notes">
+                    <textarea matInput formControlName="notes" rows="8" name="notes" id="notes"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="box">
+            <div class="content-box">
+                <h2>Documents</h2>
+                <table>
+                    <tr formArrayName="documents" *ngFor="let document of documents.controls; let i = index" [formGroupName]="i">
+                        <td>{{ document.value.name }}</td>
+                        <td>{{ document.value.extension }}</td>
+                        <td>{{ document.value.uploadAt }}</td>
+                    </tr>
+                </table>
+                <div class="content-treatments">
+                    <button type="button" class="btn-add-treatment" (click)="openDocumentDialog()">Ajouter un
+                        document</button>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="content-box">
+                <h2>Traitements</h2>
+                <div class="list-treatments">
+                    <p formArrayName="treatments" *ngFor="let treatment of treatments.controls; let i = index" [formGroupName]="i">
+                        {{ treatment.value.drug }} médicament(s) à prendre {{ treatment.value.repeat }} fois par jour pendant {{ treatment.value.duration }} jours.
+                    </p>
+                </div>
+                <div class="content-treatments">
+                    <button type="button" class="btn-add-treatment" (click)="openTreatmentDialog()">Ajouter un
+                        traitement</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

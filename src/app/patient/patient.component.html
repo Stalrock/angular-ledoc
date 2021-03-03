@@ -1,0 +1,78 @@
+<header>
+    <h1>{{ patient.lastName.toUpperCase() }} {{ patient.firstName }}</h1>
+    <div class="header-right">
+        <a class="btn-grey" [routerLink]="['/patients', patient.id, 'edit']">Modifier</a>
+        <a class="btn-grey" href="#">Appeler</a>
+        <button class="btn-archive" (click)="deletePatient()">Archiver</button>
+    </div>
+</header>
+
+<div class="content-flex">
+    <div class="box w30">
+        <div class="content-box patient-top-box">
+            <h2>Informations</h2>
+            <table>
+                <tr>
+                    <td>Genre:</td>
+                    <td>{{ patient.gender }}</td>
+                </tr>
+                <tr>
+                    <td>Taille:</td>
+                    <td>{{ patient.height }}cm</td>
+                </tr>
+                <tr>
+                    <td>Poids:</td>
+                    <td>{{ patient.weight }}kg</td>
+                </tr>
+                <tr>
+                    <td>Allergies:</td>
+                    <td>{{ patient.allergies }}</td>
+                </tr>
+                <tr>
+                    <td>Groupe sanguin:</td>
+                    <td>{{ patient.bloodGroup }}</td>
+                </tr>
+                <tr>
+                    <td>N°Sécu:</td>
+                    <td>{{ patient.socialNumber }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="box w70">
+        <div class="content-box patient-top-box patient-notes">
+            <h2>Notes</h2>
+            <div class="content-notes">
+                <p class="notes">{{ patient.notes }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="content-box">
+            <h2>Documents</h2>
+            <table>
+                <tr *ngFor="let document of patient.documents">
+                    <td>{{ document.name }}</td>
+                    <td>{{ document.extension }}</td>
+                    <td>{{ document.uploadAt }}</td>
+                </tr>
+            </table>
+            <div class="content-treatments">
+                <button class="btn-add-treatment" (click)="openDocumentDialog()">Ajouter un document</button>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="content-box">
+            <h2>Traitements</h2>
+            <div class="list-treatments">
+                <p *ngFor="let treatment of patient.treatments">
+                    {{ treatment.drug }} médicament(s) à prendre {{ treatment.repeat }} fois par jour pendant {{ treatment.duration }} jours.
+                </p>
+            </div>
+            <div class="content-treatments">
+                <button class="btn-add-treatment" (click)="openTreatmentDialog()">Ajouter un traitement</button>
+            </div>
+        </div>
+    </div>
+</div>

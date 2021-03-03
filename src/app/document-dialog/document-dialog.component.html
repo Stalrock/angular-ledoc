@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Ajouter un doucment</h2>
+
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+        <label for="name">Nom*</label>
+        <input matInput type="text" formControlName="name" name="name" id="name" />
+        <mat-error>
+            <span *ngIf="form.get('name').hasError('required')">Le nom du document est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <label for="extension">Extension*</label>
+        <input matInput type="text" formControlName="extension" name="extension" id="extension" />
+        <mat-error>
+            <span *ngIf="form.get('extension').hasError('required')">L'extension est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <label for="uploadAt">Date d'ajout*</label>
+        <input matInput type="date" formControlName="uploadAt" name="uploadAt" id="uploadAt" />
+        <mat-error>
+            <span *ngIf="form.get('uploadAt').hasError('required')">La date d'ajout est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="btn-add-treatment" style="width:100%;" (click)="save()">Ajouter un document</button>
+</mat-dialog-actions>

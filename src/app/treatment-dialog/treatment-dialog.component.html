@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Ajouter un traitement</h2>
+
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+        <label for="drug">Médicaments*</label>
+        <input matInput type="number" formControlName="drug" name="drug" id="drug" />
+        <mat-error>
+            <span *ngIf="form.get('drug').hasError('required')">Le nombre de médicament est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <label for="repeat">Répétition*</label>
+        <input matInput type="number" formControlName="repeat" name="repeat" id="repeat" />
+        <mat-error>
+            <span *ngIf="form.get('repeat').hasError('required')">Le nombre de fois est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <label for="duration">Durée*</label>
+        <input matInput type="number" formControlName="duration" name="duration" id="duration" />
+        <mat-error>
+            <span *ngIf="form.get('duration').hasError('required')">La durée est
+                obligatoire.</span>
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="btn-add-treatment" style="width:100%;" (click)="save()">Ajouter un traitement</button>
+</mat-dialog-actions>

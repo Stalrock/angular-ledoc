@@ -1,0 +1,73 @@
+.meets {
+    margin-top: 75px;
+}
+
+.meets-link {
+    color: #C5C8D4;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 20px;
+    padding: 5px;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.meet {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    &-number {
+        font-size: 2.15rem;
+    }
+    &-hour {
+        min-width: 100px;
+        text-align: center;
+    }
+    &-bar {
+        display: flex;
+        justify-content: space-between;
+        background-color: #e5e5e58a;
+        border-radius: 5px;
+        padding: 0 15px;
+        flex: 1;
+        transition: all 0.25s;
+    }
+    &:hover &-bar {
+        background-color: #59E1F7;
+        color: #fff;
+    }
+}
+
+.last-patients {
+    margin-top: 30px;
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    .stat {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 10px 0;
+        .mat-icon {
+            font-size: 2rem;
+            width: initial !important;
+            height: initial !important;
+            color: #DADADA;
+        }
+        &-number {
+            margin-top: 10px;
+        }
+        &-text {
+            margin: 0;
+        }
+    }
+}
+
+.dashboard-top-box {
+    min-height: 395px;
+}

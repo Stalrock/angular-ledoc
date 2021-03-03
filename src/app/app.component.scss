@@ -1,0 +1,22 @@
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+.container {
+  padding: 2% 10%;
+}
+
+.mat-drawer-container {
+  background-color: #f9faff;
+  color: #1a1a1a;
+}
+
+.mat-drawer {
+    background-color: #20295A;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    a {
+        color: #fff;
+    }
+}

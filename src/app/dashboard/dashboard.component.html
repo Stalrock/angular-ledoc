@@ -1,0 +1,96 @@
+<header>
+    <h1>Dashboard</h1>
+    <div class="header-right">
+        <a class="btn-plus" [routerLink]="['/patients/nouveau']">+</a>
+    </div>
+</header>
+
+<div class="content-flex">
+    <div class="box w70">
+        <div class="content-box dashboard-top-box">
+            <span class="meet-number">{{ meets?.length }}</span>
+            <h2>Rendez-vous aujourd'hui</h2>
+            <a class="meets-link" [routerLink]="['/meets']">Voir tous ></a>
+            <div class="meets">
+                <div class="meet" *ngFor="let meet of meets | slice:0:3">
+                    <span class="meet-hour">{{ meet.date | date:'h:mm':'UTC' }}</span>
+                    <div class="meet-bar">
+                        <p class="meet-patient-name">{{ meet.patient.firstName }} {{ meet.patient.lastName }}</p>
+                        <p class="meet-patient-subject">{{ meet.subject }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box w30">
+        <div class="content-box dashboard-top-box">
+            <h2>Statistiques</h2>
+            <mat-tab-group class="stats" *ngIf="stats.length > 0" animationDuration="0ms" mat-align-tabs="end">
+                <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+                    <div class="stats">
+                        <div class="stat w33">
+                            <mat-icon>event</mat-icon>
+                            <span class="stat-number">{{stats[index].meeting}}</span>
+                            <p class="stat-text">rendez-vous</p>
+                        </div>
+                        <div class="stat w33">
+                            <mat-icon>local_hospital</mat-icon>
+                            <span class="stat-number">{{stats[index].emergencies}}</span>
+                            <p class="stat-text">urgences</p>
+                        </div>
+                        <div class="stat w33">
+                            <mat-icon>duo</mat-icon>
+                            <span class="stat-number">{{stats[index].videoMeeting}}</span>
+                            <p class="stat-text">consultations vidéo</p>
+                        </div>
+                        <div class="stat w33">
+                            <mat-icon>people_outline</mat-icon>
+                            <span class="stat-number">{{stats[index].availablesAssits}}</span>
+                            <p class="stat-text">assistants disponibles</p>
+                        </div>
+                        <div class="stat w33">
+                            <mat-icon>insert_drive_file</mat-icon>
+                            <span class="stat-number">{{stats[index].orders}}</span>
+                            <p class="stat-text">ordonnances</p>
+                        </div>
+                        <div class="stat w33">
+                            <mat-icon>add_ic_call</mat-icon>
+                            <span class="stat-number">{{stats[index].missingCalls}}</span>
+                            <p class="stat-text">appels manqués</p>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<section class="last-patients">
+    <h2>Les derniers patients</h2>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Nom</th>
+                <td mat-cell *matCellDef="let patient">{{patient.lastName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>Prénom</th>
+                <td mat-cell *matCellDef="let patient">{{patient.firstName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastIncome">
+                <th mat-header-cell *matHeaderCellDef>Dernière visite</th>
+                <td mat-cell *matCellDef="let patient">{{patient.lastIncome}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastSubject">
+                <th mat-header-cell *matHeaderCellDef>Motif</th>
+                <td mat-cell *matCellDef="let patient">{{patient.lastSubject}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showPatient(row['id'])"></tr>
+        </table>
+    </div>
+</section>

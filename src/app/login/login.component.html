@@ -1,0 +1,33 @@
+<header>
+    <h1>Connexion</h1>
+    <div class="header-right">
+        <button class="btn-archive" *ngIf="tokenStorageService.isAuthenticate()"
+            (click)="disconnect()">Déconnexion</button>
+    </div>
+</header>
+
+<div class="content-flex" *ngIf="!tokenStorageService.isAuthenticate()">
+    <div class="box">
+        <div class="content-box">
+            <form [formGroup]="form" (ngSubmit)="login()">
+                <mat-form-field>
+                    <label for="username">Utilisateur</label>
+                    <input type="text" matInput formControlName="username" name="username" id="username" />
+                    <mat-error>
+                        <span *ngIf="form.get('username').hasError('required')">Le nom d'utilisateur est
+                            obligatoire.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" matInput formControlName="password" name="password" id="password" />
+                    <mat-error>
+                        <span *ngIf="form.get('password').hasError('required')">Le mot de passe est obligatoire.</span>
+                    </mat-error>
+                </mat-form-field>
+                <button class="btn-add-treatment" color="primary">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
